@@ -1,0 +1,202 @@
+{
+  "5paisa": {
+    "intraday": {
+      "brokerage_pct": 0.0005,
+      "max_brokerage": 20,
+      "stt_pct": 0.00025,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 0
+    },
+    "delivery": {
+      "brokerage_pct": 0,
+      "max_brokerage": 0,
+      "stt_pct": 0.001,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 13.5
+    }
+  },
+  "Angel One": {
+    "intraday": {
+      "brokerage_pct": 0.0025,
+      "max_brokerage": 20,
+      "stt_pct": 0.00025,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 0
+    },
+    "delivery": {
+      "brokerage_pct": 0,
+      "max_brokerage": 0,
+      "stt_pct": 0.001,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 13.5
+    }
+  },
+  "Groww": {
+    "intraday": {
+      "brokerage_pct": 0.001,
+      "max_brokerage": 20,
+      "stt_pct": 0.00025,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 0
+    },
+    "delivery": {
+      "brokerage_pct": 0.001,
+      "max_brokerage": 20,
+      "stt_pct": 0.001,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 18.25
+    }
+  },
+  "HDFC Securities": {
+    "intraday": {
+      "brokerage_pct": 0.00035,
+      "max_brokerage": null,
+      "stt_pct": 0.00025,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 0
+    },
+    "delivery": {
+      "brokerage_pct": 0.0035,
+      "max_brokerage": null,
+      "stt_pct": 0.001,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 13.5
+    }
+  },
+  "ICICI Direct": {
+    "intraday": {
+      "brokerage_pct": 0.00029,
+      "max_brokerage": null,
+      "stt_pct": 0.00025,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 0
+    },
+    "delivery": {
+      "brokerage_pct": 0.0029,
+      "max_brokerage": null,
+      "stt_pct": 0.001,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 13.5
+    }
+  },
+  "Indmoney": {
+    "intraday": {
+      "brokerage_pct": 0,
+      "max_brokerage": 0,
+      "stt_pct": 0.00025,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 0
+    },
+    "delivery": {
+      "brokerage_pct": 0,
+      "max_brokerage": 0,
+      "stt_pct": 0.001,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 0
+    }
+  },
+  "Kotak Securities": {
+    "intraday": {
+      "brokerage_pct": 0.0005,
+      "max_brokerage": 10,
+      "stt_pct": 0.00025,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 0
+    },
+    "delivery": {
+      "brokerage_pct": 0.002,
+      "max_brokerage": null,
+      "stt_pct": 0.001,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 13.5
+    }
+  },
+  "Motilal Oswal": {
+    "intraday": {
+      "brokerage_pct": 0.0002,
+      "max_brokerage": null,
+      "stt_pct": 0.00025,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 0
+    },
+    "delivery": {
+      "brokerage_pct": 0.002,
+      "max_brokerage": null,
+      "stt_pct": 0.001,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 13.5
+    }
+  },
+  "Upstox": {
+    "intraday": {
+      "brokerage_pct": 0.001,
+      "max_brokerage": 20,
+      "stt_pct": 0.00025,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 0
+    },
+    "delivery": {
+      "brokerage_pct": 0.0025,
+      "max_brokerage": 20,
+      "stt_pct": 0.001,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 13.5
+    }
+  },
+  "Zerodha": {
+    "intraday": {
+      "brokerage_pct": 0.0005,
+      "max_brokerage": 20,
+      "stt_pct": 0.00025,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 0
+    },
+    "delivery": {
+      "brokerage_pct": 0,
+      "max_brokerage": 0,
+      "stt_pct": 0.001,
+      "stamp_duty_pct": 0.00015,
+      "gst_pct": 0.18,
+      "sebi_pct": 0.000001,
+      "dp_charges": 13.5
+    }
+  }
+}
