@@ -1,6 +1,7 @@
+/* Import Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-/* Global box sizing */
+/* Box sizing reset */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -26,11 +27,18 @@ body {
   padding: 40px 15px;
 }
 
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .container {
   background: rgba(255,255,255,0.08);
-  padding: 30px 40px;
+  padding: 25px 30px;
   border-radius: 15px;
-  max-width: 980px;
+  max-width: 960px;
   width: 100%;
   box-shadow: 0 8px 20px rgba(0,0,0,0.4);
   backdrop-filter: blur(12px);
@@ -49,12 +57,14 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .input-section label {
   display: block;
   margin-bottom: 18px;
-  max-width: 320px;
+  max-width: 100%;
   width: 100%;
   font-weight: 500;
   font-size: 1rem;
@@ -168,6 +178,32 @@ button:hover {
   border-bottom: none;
 }
 
+/* About Section */
+.about-section {
+  width: 100%;
+  max-width: 980px;
+  margin-top: 40px;
+  padding: 20px 30px;
+  text-align: center;
+  color: #f0faff;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.about-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: #e2eeff;
+  text-shadow: 0 0 5px rgba(200, 200, 255, 0.4);
+}
+
+.about-section p {
+  font-size: 1rem;
+  max-width: 700px;
+  margin: 10px auto;
+  line-height: 1.6;
+}
+
 /* Mobile Responsive */
 @media (max-width: 700px) {
   body {
@@ -213,75 +249,3 @@ button:hover {
     max-width: 360px;
   }
 }
-.about-section {
-margin-top: 60px;
-padding: 20px;
-border-top: 1px solid rgba(255, 255, 255, 0.2);
-color: #f0faff;
-text-align: center;
-}
-
-.about-section h2 {
-font-size: 1.4rem;
-margin-bottom: 10px;
-color: #e2eeff;
-text-shadow: 0 0 5px rgba(200, 200, 255, 0.4);
-}
-
-.about-section p {
-font-size: 1rem;
-max-width: 700px;
-margin: 10px auto;
-line-height: 1.6;
-}
-/* Shrink input form width on large screens */
-.input-section {
-display: flex;
-flex-direction: column;
-align-items: center;
-max-width: 500px;
-margin: 0 auto;
-}
-
-/* Make container centered and more compact */
-.container {
-background: rgba(255,255,255,0.08);
-padding: 25px 30px;
-border-radius: 15px;
-max-width: 960px;
-width: 100%;
-box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-backdrop-filter: blur(12px);
-}
-
-/* About section at bottom */
-.page-wrapper {
-display: flex;
-flex-direction: column;
-align-items: center;
-width: 100%;
-}
-
-.about-section {
-width: 100%;
-max-width: 980px;
-margin-top: 40px;
-padding: 20px 30px;
-text-align: center;
-color: #f0faff;
-border-top: 1px solid rgba(255, 255, 255, 0.15);
-background: rgba(255, 255, 255, 0.04);
-}
-
-.about-section h2 {
-font-size: 1.4rem;
-margin-bottom: 10px;
-color: #e2eeff;
-text-shadow: 0 0 5px rgba(200, 200, 255, 0.4);
-}
-
-.about-section p {
-font-size: 1rem;
-max-width: 700px;
-margin: 10px auto;
-line-height: 1.6;
