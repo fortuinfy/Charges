@@ -1,106 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brokerage Calculator</title>
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-  <!-- Your CSS -->
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>Brokerage Calculator</h1>
+<head> <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Brokerage Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" /> </head> <body> <div class="page-wrapper">
+<div class="container">
+  <h1>Brokerage Calculator</h1>
 
-    <!-- INPUT SECTION -->
-    <div class="input-section">
-      <label>
-        Script Name:
-        <input type="text" id="script" placeholder="Enter script name" />
-      </label>
+  <div class="input-section">
+    <label>
+      Script Name:
+      <input type="text" id="script" placeholder="Enter script name" />
+    </label>
 
-      <label>
-        Exchange:
-        <select id="exchange">
-          <option value="NSE">NSE</option>
-          <option value="BSE">BSE</option>
-        </select>
-      </label>
+    <label>
+      Exchange:
+      <select id="exchange">
+        <option value="NSE">NSE</option>
+        <option value="BSE">BSE</option>
+      </select>
+    </label>
 
-      <label>
-        Broker:
-        <select id="broker">
-          <option value="5paisa">5paisa</option>
-          <option value="Angel One">Angel One</option>
-          <option value="Groww">Groww</option>
-          <option value="HDFC Securities">HDFC Securities</option>
-          <option value="ICICI Direct">ICICI Direct</option>
-          <option value="Indmoney">Indmoney</option>
-          <option value="Kotak Securities">Kotak Securities</option>
-          <option value="Motilal Oswal">Motilal Oswal</option>
-          <option value="Upstox">Upstox</option>
-          <option value="Zerodha">Zerodha</option>
-        </select>
-      </label>
+    <label>
+      Broker:
+      <select id="broker">
+        <option value="5paisa">5paisa</option>
+        <option value="Angel One">Angel One</option>
+        <option value="Groww">Groww</option>
+        <option value="HDFC Securities">HDFC Securities</option>
+        <option value="ICICI Direct">ICICI Direct</option>
+        <option value="Indmoney">Indmoney</option>
+        <option value="Kotak Securities">Kotak Securities</option>
+        <option value="Motilal Oswal">Motilal Oswal</option>
+        <option value="Upstox">Upstox</option>
+        <option value="Zerodha">Zerodha</option>
+      </select>
+    </label>
 
-      <label>
-        Trade Type:
-        <select id="type">
-          <option value="intraday">Intraday</option>
-          <option value="delivery">Delivery</option>
-        </select>
-      </label>
+    <label>
+      Trade Type:
+      <select id="type">
+        <option value="intraday">Intraday</option>
+        <option value="delivery">Delivery</option>
+      </select>
+    </label>
 
-      <label>
-        Trade Mode:
-        <select id="tradeMode">
-          <option value="buy">Only Buy</option>
-          <option value="sell">Only Sell</option>
-          <option value="both">Buy & Sell</option>
-        </select>
-      </label>
+    <label>
+      Trade Mode:
+      <select id="tradeMode">
+        <option value="buy">Only Buy</option>
+        <option value="sell">Only Sell</option>
+        <option value="both">Buy & Sell</option>
+      </select>
+    </label>
 
-      <label>
-        Quantity:
-        <input type="number" id="qty" placeholder="Quantity" />
-      </label>
+    <label>
+      Quantity:
+      <input type="number" id="qty" placeholder="Quantity" />
+    </label>
 
-      <label>
-        Buy Price:
-        <input type="number" id="buy" placeholder="Buy price" />
-      </label>
+    <label>
+      Buy Price:
+      <input type="number" id="buy" placeholder="Buy price" />
+    </label>
 
-      <label>
-        Sell Price:
-        <input type="number" id="sell" placeholder="Sell price" />
-      </label>
+    <label>
+      Sell Price:
+      <input type="number" id="sell" placeholder="Sell price" />
+    </label>
 
-      <div class="btn-group">
-        <button id="calculate">Calculate</button>
-        <button id="erase">Erase Inputs</button>
-      </div>
-    </div>
-
-    <!-- RESULTS SECTION -->
-    <div class="results-section">
-      <div id="results" class="results-container"></div>
-
-      <div class="btn-group results-buttons">
-        <button id="clearResults">Clear Results</button>
-        <button id="exportExcel">Export Excel</button>
-        <button id="exportPDF">Export PDF</button>
-      </div>
+    <div class="btn-group">
+      <button id="calculate">Calculate</button>
+      <button id="erase">Erase Inputs</button>
     </div>
   </div>
 
-  <!-- JS Libraries for Export -->
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <div class="results-section">
+    <div id="results" class="results-container"></div>
 
-  <!-- Your Main Script -->
-  <script src="script.js"></script>
-  <!-- 📄 About Us Section --> <section class="about-section"> <h2>About This App</h2> <p> This Brokerage Calculator is developed and maintained by <strong>Alok K.</strong> </p> <p> It calculates brokerage and government charges for Indian stock trades across multiple brokers using up-to-date data. </p> <p> For feedback or support, contact: <strong>fotuinfy@gmail.com</strong> </p> </section>
-</body>
-</html>
+    <div class="btn-group results-buttons">
+      <button id="clearResults">Clear Results</button>
+      <button id="exportExcel">Export Excel</button>
+      <button id="exportPDF">Export PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- 📄 About Section -->
+<section class="about-section">
+  <h2>About This App</h2>
+  <p>
+    This Brokerage Calculator is developed and maintained by <strong>Alok K.</strong>
+  </p>
+  <p>
+    It calculates brokerage and government charges for Indian stock trades across multiple brokers using up-to-date data.
+  </p>
+  <p>
+    For feedback or support, contact: <strong>fotuinfy@gmail.com</strong>
+  </p>
+</section>
