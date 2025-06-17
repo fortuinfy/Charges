@@ -20,17 +20,19 @@
     </select>
 
     <label for="tradeTypeSelect">Trade Type:</label>
-    <select id="tradeTypeSelect">
+    <select id="tradeTypeSelect" onchange="toggleSideOptions()">
       <option value="Intraday">Intraday</option>
       <option value="Delivery">Delivery</option>
     </select>
 
-    <label for="sideSelect">Transaction Side:</label>
-    <select id="sideSelect">
-      <option value="Both">Buy & Sell</option>
-      <option value="Buy">Buy Only</option>
-      <option value="Sell">Sell Only</option>
-    </select>
+    <div id="sideSection" style="display: none;">
+      <label for="sideSelect">Transaction Side:</label>
+      <select id="sideSelect">
+        <option value="Both">Buy & Sell</option>
+        <option value="Buy">Buy Only</option>
+        <option value="Sell">Sell Only</option>
+      </select>
+    </div>
 
     <label for="buyPrice">Buy Price:</label>
     <input type="number" id="buyPrice" />
