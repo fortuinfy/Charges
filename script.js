@@ -56,7 +56,7 @@ function calculate() {
   let brokerage = 0;
   const flatFee = getFlatFee(brokerageText);
   if (flatFee !== null) {
-    brokerage = flatFee * 2; // Buy + Sell
+    brokerage = flatFee * 2;
   } else {
     brokerage = turnover * getPercent(brokerageText) / 100;
   }
@@ -82,26 +82,26 @@ function calculate() {
   const stampRate = getPercent(data[stampKey]);
   const stampDuty = buyValue * stampRate / 100;
 
-  // Total
+  // Total Charges & Net Profit
   const totalCharges = brokerage + stt + exchangeTxn + sebi + gst + stampDuty;
   const netProfit = profitLoss - totalCharges;
 
   document.getElementById("result").innerHTML = `
-    <strong>Trade Summary:</strong><br>
-    Buy Value (₹${buyPrice} x ${quantity}): ₹${buyValue.toFixed(2)}<br>
-    Sell Value (₹${sellPrice} x ${quantity}): ₹${sellValue.toFixed(2)}<br>
+    <strong>🔍 Trade Summary:</strong><br>
+    Buy Value (₹${buyPrice} × ${quantity}): ₹${buyValue.toFixed(2)}<br>
+    Sell Value (₹${sellPrice} × ${quantity}): ₹${sellValue.toFixed(2)}<br>
     Turnover: ₹${turnover.toFixed(2)}<br><br>
 
-    <strong>Charge Breakdown:</strong><br>
+    <strong>📋 Charge Breakdown:</strong><br>
     Brokerage (${brokerageText}): ₹${brokerage.toFixed(2)}<br>
-    STT (${sttRate}% on sell): ₹${stt.toFixed(2)}<br>
+    STT (${sttRate}% on Sell): ₹${stt.toFixed(2)}<br>
     Exchange Charges (${exchangeRate}%): ₹${exchangeTxn.toFixed(2)}<br>
     SEBI Charges (${sebiRate}%): ₹${sebi.toFixed(2)}<br>
-    GST (18% on brokerage + exchange): ₹${gst.toFixed(2)}<br>
-    Stamp Duty (${stampRate}% on buy): ₹${stampDuty.toFixed(2)}<br><br>
+    GST (18% on Brokerage + Exchange): ₹${gst.toFixed(2)}<br>
+    Stamp Duty (${stampRate}% on Buy): ₹${stampDuty.toFixed(2)}<br><br>
 
-    <strong>Total Charges:</strong> ₹${totalCharges.toFixed(2)}<br>
-    <strong>Gross P/L:</strong> ₹${profitLoss.toFixed(2)}<br>
-    <strong>Net Profit:</strong> ₹${netProfit.toFixed(2)}
+    <strong>🧮 Total Charges:</strong> ₹${totalCharges.toFixed(2)}<br>
+    <strong>📈 Gross P/L:</strong> ₹${profitLoss.toFixed(2)}<br>
+    <strong>💰 Net Profit:</strong> ₹${netProfit.toFixed(2)}
   `;
 }
