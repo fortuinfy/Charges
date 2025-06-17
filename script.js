@@ -24,7 +24,40 @@ function populateBrokers(brokers) {
 function toggleSideOptions() {
   const tradeType = document.getElementById("tradeTypeSelect").value;
   const sideSection = document.getElementById("sideSection");
-  sideSection.style.display = tradeType === "Delivery" ? "block" : "none";
+  const sideSelect = document.getElementById("sideSelect");
+
+  if (tradeType === "Delivery") {
+    sideSection.style.display = "block";
+  } else {
+    sideSection.style.display = "none";
+    sideSelect.value = "Both"; // Default to Both
+    document.getElementById("buyPrice").disabled = false;
+    document.getElementById("sellPrice").disabled = false;
+  }
+  toggleInputFields();
+}
+
+function toggleInputFields() {
+  const tradeType = document.getElementById("tradeTypeSelect").value;
+  const side = document.getElementById("sideSelect").value;
+  const buyInput = document.getElementById("buyPrice");
+  const sellInput = document.getElementById("sellPrice");
+
+  if (tradeType === "Delivery") {
+    if (side === "Buy") {
+      buyInput.disabled = false;
+      sellInput.disabled = true;
+    } else if (side === "Sell") {
+      buyInput.disabled = true;
+      sellInput.disabled = false;
+    } else {
+      buyInput.disabled = false;
+      sellInput.disabled = false;
+    }
+  } else {
+    buyInput.disabled = false;
+    sellInput.disabled = false;
+  }
 }
 
 function getPercent(str) {
