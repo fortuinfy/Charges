@@ -2,280 +2,126 @@
   "Groww": {
     "NSE": {
       "Intraday": {
-        "buy": {
-          "brokerage": "0.03%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.003%"
-        },
-        "sell": {
-          "brokerage": "0.03%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
+        "brokerage": 0.0003,
+        "brokerage_max": 20,
+        "stt": 0.00025,
+        "etc": 0.0000345,
+        "sebi": 0.000001,
+        "gst": 0.18,
+        "stamp_duty": 0.00003
       },
       "Delivery": {
-        "buy": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.015%"
-        },
-        "sell": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
+        "brokerage": 0,
+        "brokerage_max": 0,
+        "stt": 0.001,
+        "etc": 0.0000345,
+        "sebi": 0.000001,
+        "gst": 0.18,
+        "stamp_duty": 0.00015
       }
     },
     "BSE": {
       "Intraday": {
-        "buy": {
-          "brokerage": "0.03%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00275%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.003%"
-        },
-        "sell": {
-          "brokerage": "0.03%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00275%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
+        "brokerage": 0.0003,
+        "brokerage_max": 20,
+        "stt": 0.00025,
+        "etc": 0.0000345,
+        "sebi": 0.000001,
+        "gst": 0.18,
+        "stamp_duty": 0.00003
       },
       "Delivery": {
-        "buy": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00275%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.015%"
-        },
-        "sell": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00275%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
+        "brokerage": 0,
+        "brokerage_max": 0,
+        "stt": 0.001,
+        "etc": 0.0000345,
+        "sebi": 0.000001,
+        "gst": 0.18,
+        "stamp_duty": 0.00015
       }
     }
   },
-
-  "IND Money": {
-    "NSE": {
-      "Intraday": {
-        "buy": {
-          "brokerage": "0.01%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.003%"
-        },
-        "sell": {
-          "brokerage": "0.01%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
-      },
-      "Delivery": {
-        "buy": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.015%"
-        },
-        "sell": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
-      }
-    },
-    "BSE": {
-      "Intraday": {
-        "buy": {
-          "brokerage": "0.01%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00275%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.003%"
-        },
-        "sell": {
-          "brokerage": "0.01%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00275%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
-      },
-      "Delivery": {
-        "buy": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00275%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.015%"
-        },
-        "sell": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00275%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
-      }
-    }
-  },
-
-  "Upstox": {
-    "NSE": {
-      "Intraday": {
-        "buy": {
-          "brokerage": "0.05%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.003%"
-        },
-        "sell": {
-          "brokerage": "0.05%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
-      },
-      "Delivery": {
-        "buy": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.015%"
-        },
-        "sell": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
-      }
-    }
-  },
-
   "Zerodha": {
     "NSE": {
       "Intraday": {
-        "buy": {
-          "brokerage": "0.03%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.003%"
-        },
-        "sell": {
-          "brokerage": "0.03%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
+        "brokerage": 0.0003,
+        "brokerage_max": 20,
+        "stt": 0.00025,
+        "etc": 0.0000325,
+        "sebi": 0.000001,
+        "gst": 0.18,
+        "stamp_duty": 0.00003
       },
       "Delivery": {
-        "buy": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.015%"
-        },
-        "sell": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
+        "brokerage": 0,
+        "brokerage_max": 0,
+        "stt": 0.001,
+        "etc": 0.0000325,
+        "sebi": 0.000001,
+        "gst": 0.18,
+        "stamp_duty": 0.00015
+      }
+    },
+    "BSE": {
+      "Intraday": {
+        "brokerage": 0.0003,
+        "brokerage_max": 20,
+        "stt": 0.00025,
+        "etc": 0.0000325,
+        "sebi": 0.000001,
+        "gst": 0.18,
+        "stamp_duty": 0.00003
+      },
+      "Delivery": {
+        "brokerage": 0,
+        "brokerage_max": 0,
+        "stt": 0.001,
+        "etc": 0.0000325,
+        "sebi": 0.000001,
+        "gst": 0.18,
+        "stamp_duty": 0.00015
       }
     }
   },
-
-  "5 Paisa": {
+  "IND Money": {
     "NSE": {
       "Intraday": {
-        "buy": {
-          "brokerage": "0.05%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.003%"
-        },
-        "sell": {
-          "brokerage": "0.05%",
-          "stt": "0.025%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
+        "brokerage": 0.00025,
+        "brokerage_max": 15,
+        "stt": 0.00025,
+        "etc": 0.00003,
+        "sebi": 0.000001,
+        "gst": 0.18,
+        "stamp_duty": 0.00003
       },
       "Delivery": {
-        "buy": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0.015%"
-        },
-        "sell": {
-          "brokerage": "0",
-          "stt": "0.1%",
-          "exchange_txn": "0.00345%",
-          "gst": "18%",
-          "sebi": "0.0001%",
-          "stamp": "0%"
-        }
+        "brokerage": 0,
+        "brokerage_max": 0,
+        "stt": 0.001,
+        "etc": 0.00003,
+        "sebi": 0.000001,
+        "gst": 0.18,
+        "stamp_duty": 0.00015
+      }
+    },
+    "BSE": {
+      "Intraday": {
+        "brokerage": 0.00025,
+        "brokerage_max": 15,
+        "stt": 0.00025,
+        "etc": 0.00003,
+        "sebi": 0.000001,
+        "gst": 0.18,
+        "stamp_duty": 0.00003
+      },
+      "Delivery": {
+        "brokerage": 0,
+        "brokerage_max": 0,
+        "stt": 0.001,
+        "etc": 0.00003,
+        "sebi": 0.000001,
+        "gst": 0.18,
+        "stamp_duty": 0.00015
       }
     }
   }
