@@ -10,7 +10,7 @@ body {
   background: white;
   padding: 20px;
   border-radius: 8px;
-  width: 320px;
+  width: 350px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
@@ -37,4 +37,9 @@ button {
 
 #result {
   margin-top: 20px;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 1.6;
 }
