@@ -1,64 +1,62 @@
-let brokersData = {};
+let chargesData;
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadBrokers();
+  fetch("charges.json")
+    .then(res => res.json())
+    .then(data => {
+      chargesData = data;
+      populateBrokers();
+    });
 
-  document.getElementById("tradeType").addEventListener("change", toggleSideOptions);
-  document.getElementById("transactionSide").addEventListener("change", toggleInputFields);
+  const tradeType = document.getElementById("tradeType");
+  const transactionSideGroup = document.getElementById("transactionSideGroup");
+  const transactionSide = document.getElementById("transactionSide");
+  const buyPriceInput = document.getElementById("buyPrice");
+  const sellPriceInput = document.getElementById("sellPrice");
+
+  tradeType.addEventListener("change", () => {
+    if (tradeType.value === "Delivery") {
+      transactionSideGroup.style.display = "block";
+      handleTransactionSide(transactionSide.value);
+    } else {
+      transactionSideGroup.style.display = "none";
+      buyPriceInput.disabled = false;
+      sellPriceInput.disabled = false;
+    }
+  });
+
+  transactionSide.addEventListener("change", () => {
+    handleTransactionSide(transactionSide.value);
+  });
+
   document.getElementById("calculateBtn").addEventListener("click", calculateCharges);
 });
 
-async function loadBrokers() {
-  try {
-    const res = await fetch("charges.json");
-    brokersData = await res.json();
-
-    const brokerSelect = document.getElementById("broker");
-    brokerSelect.innerHTML = '<option value="">-- Select Broker --</option>';
-    Object.keys(brokersData).forEach(broker => {
-      const opt = document.createElement("option");
-      opt.value = broker;
-      opt.textContent = broker;
-      brokerSelect.appendChild(opt);
-    });
-  } catch (err) {
-    console.error("Error loading broker data:", err);
-  }
+function populateBrokers() {
+  const brokerSelect = document.getElementById("broker");
+  Object.keys(chargesData).forEach(broker => {
+    const option = document.createElement("option");
+    option.value = broker;
+    option.textContent = broker;
+    brokerSelect.appendChild(option);
+  });
 }
 
-function toggleSideOptions() {
-  const tradeType = document.getElementById("tradeType").value;
-  const sideGroup = document.getElementById("transactionSideGroup");
-
-  if (tradeType === "Delivery") {
-    sideGroup.style.display = "block";
-  } else {
-    sideGroup.style.display = "none";
-    document.getElementById("transactionSide").value = "Both";
-    enableInputs("Both");
-  }
-}
-
-function toggleInputFields() {
-  const side = document.getElementById("transactionSide").value;
-  enableInputs(side);
-}
-
-function enableInputs(side) {
-  const buy = document.getElementById("buyPrice");
-  const sell = document.getElementById("sellPrice");
+function handleTransactionSide(side) {
+  const buyPriceInput = document.getElementById("buyPrice");
+  const sellPriceInput = document.getElementById("sellPrice");
 
   if (side === "Buy Only") {
-    buy.disabled = false;
-    sell.disabled = true;
-    sell.value = ""; // Clear sell input
+    sellPriceInput.value = "";
+    sellPriceInput.disabled = true;
+    buyPriceInput.disabled = false;
   } else if (side === "Sell Only") {
-    buy.disabled = true;
-    sell.disabled = false;
-    buy.value = ""; // Clear buy input
+    buyPriceInput.value = "";
+    buyPriceInput.disabled = true;
+    sellPriceInput.disabled = false;
   } else {
-    buy.disabled = false;
-    sell.disabled = false;
+    buyPriceInput.disabled = false;
+    sellPriceInput.disabled = false;
   }
 }
 
@@ -66,55 +64,55 @@ function calculateCharges() {
   const broker = document.getElementById("broker").value;
   const exchange = document.getElementById("exchange").value;
   const tradeType = document.getElementById("tradeType").value;
-  const transactionSide = (tradeType === "Delivery")
+  const transactionSide = tradeType === "Delivery"
     ? document.getElementById("transactionSide").value
     : "Both";
+
   const buyPrice = parseFloat(document.getElementById("buyPrice").value) || 0;
   const sellPrice = parseFloat(document.getElementById("sellPrice").value) || 0;
   const quantity = parseInt(document.getElementById("quantity").value) || 0;
 
-  const resultDiv = document.getElementById("result");
-
-  if (!broker || !brokersData[broker]) {
-    resultDiv.innerHTML = "<p style='color:red'>Broker data not found.</p>";
+  if (!chargesData[broker]) {
+    document.getElementById("result").innerHTML = "<p>Broker data not found.</p>";
     return;
   }
 
-  const brokerInfo = brokersData[broker][exchange][tradeType];
-  const buyValue = (transactionSide !== "Sell Only") ? buyPrice * quantity : 0;
-  const sellValue = (transactionSide !== "Buy Only") ? sellPrice * quantity : 0;
+  const brokerData = chargesData[broker][exchange]?.[tradeType];
+  if (!brokerData) {
+    document.getElementById("result").innerHTML = "<p>Broker data not found for selected type.</p>";
+    return;
+  }
+
+  const buyValue = transactionSide === "Sell Only" ? 0 : buyPrice * quantity;
+  const sellValue = transactionSide === "Buy Only" ? 0 : sellPrice * quantity;
   const turnover = buyValue + sellValue;
 
-  const brokerage = Math.min(
-    (brokerInfo.brokerage / 100) * turnover,
-    brokerInfo.brokerage_cap
-  );
+  const brokerage = Math.min(turnover * brokerData.brokerage, brokerData.brokerage_max || Infinity);
+  const stt = (transactionSide === "Buy Only" ? buyValue : sellValue) * brokerData.stt;
+  const etc = turnover * brokerData.etc;
+  const sebi = turnover * brokerData.sebi;
+  const gst = (brokerage + etc) * brokerData.gst;
+  const stampDuty = (transactionSide === "Sell Only" ? 0 : buyValue * brokerData.stamp_duty);
 
-  const stt = brokerInfo.stt_rate / 100 * (transactionSide === "Buy Only" ? buyValue : sellValue);
-  const exchangeTxn = brokerInfo.exchange_txn_charge / 100 * turnover;
-  const sebiCharges = brokerInfo.sebi_charges / 100 * turnover;
-  const gst = brokerInfo.gst_rate / 100 * (brokerage + exchangeTxn);
-  const stampDuty = (transactionSide !== "Sell Only")
-    ? brokerInfo.stamp_duty / 100 * buyValue
-    : 0;
-
-  const totalCharges = brokerage + stt + exchangeTxn + sebiCharges + gst + stampDuty;
+  const totalCharges = brokerage + stt + etc + sebi + gst + stampDuty;
   const grossPL = sellValue - buyValue;
   const netPL = grossPL - totalCharges;
 
-  resultDiv.innerHTML = `
+  document.getElementById("result").innerHTML = `
     <h3>📊 Trade Summary:</h3>
     <p>Buy Value (₹${buyPrice} × ${quantity}): ₹${buyValue.toFixed(2)}</p>
     <p>Sell Value (₹${sellPrice} × ${quantity}): ₹${sellValue.toFixed(2)}</p>
+
     <h3>💰 Charges Breakdown:</h3>
     <ul>
       <li>Brokerage: ₹${brokerage.toFixed(2)}</li>
       <li>STT: ₹${stt.toFixed(2)}</li>
-      <li>Exchange Transaction Charges: ₹${exchangeTxn.toFixed(2)}</li>
-      <li>SEBI Charges: ₹${sebiCharges.toFixed(2)}</li>
+      <li>Exchange Transaction Charges: ₹${etc.toFixed(2)}</li>
+      <li>SEBI Charges: ₹${sebi.toFixed(2)}</li>
       <li>GST: ₹${gst.toFixed(2)}</li>
       <li>Stamp Duty: ₹${stampDuty.toFixed(2)}</li>
     </ul>
+
     <h3>🧾 Summary:</h3>
     <p>Total Charges: ₹${totalCharges.toFixed(2)}</p>
     <p>Gross P/L: ₹${grossPL.toFixed(2)}</p>
