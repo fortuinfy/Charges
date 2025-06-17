@@ -27,7 +27,7 @@
 
     <div id="sideSection" style="display: none;">
       <label for="sideSelect">Transaction Side:</label>
-      <select id="sideSelect">
+      <select id="sideSelect" onchange="toggleInputFields()">
         <option value="Both">Buy & Sell</option>
         <option value="Buy">Buy Only</option>
         <option value="Sell">Sell Only</option>
