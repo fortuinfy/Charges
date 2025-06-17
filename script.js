@@ -41,35 +41,56 @@ function calculate() {
 
   const buyValue = buyPrice * quantity;
   const sellValue = sellPrice * quantity;
+  const turnover = buyValue + sellValue;
 
-  // Extract % values
   const getPercent = (str, fallback = 0) => {
+    if (str.toLowerCase().includes('free')) return 0;
     const match = str.match(/[\d.]+/);
     return match ? parseFloat(match[0]) : fallback;
   };
 
-  const brokeragePercent = getPercent(brokerCharges[`${tradeType} Brokerage`], 0.03);
-  const sttPercent = getPercent(brokerCharges[`STT ${tradeType}`], 0.1);
-  const exchKey = `Exchange Transaction Charges ${exchange}`;
-  const exchPercent = getPercent(brokerCharges[exchKey], 0.00325);
-  const sebiPercent = getPercent(brokerCharges['SEBI Turnover Charges'], 0.0001);
-  const stampKey = `Stamp Duty (Buy-side) ${tradeType}`;
-  const stampPercent = getPercent(brokerCharges[stampKey], 0.015);
+  // Special case for flat-fee brokers (e.g., "₹10 per order")
+  const getFlatFee = (str) => {
+    const match = str.match(/₹(\d+)/);
+    return match ? parseFloat(match[1]) : null;
+  };
 
-  const brokerage = ((buyValue + sellValue) * brokeragePercent) / 100;
-  const stt = (sellValue * sttPercent) / 100;
-  const exchangeTxn = ((buyValue + sellValue) * exchPercent) / 100;
-  const sebi = ((buyValue + sellValue) * sebiPercent) / 100;
-  const gst = ((brokerage + exchangeTxn) * 18) / 100;
-  const stampDuty = (buyValue * stampPercent) / 100;
+  let brokerage = 0;
+  const brokerageStr = brokerCharges[`${tradeType} Brokerage`];
+  const flatFee = getFlatFee(brokerageStr);
+  if (flatFee !== null) {
+    brokerage = flatFee * 2; // Buy + Sell
+  } else {
+    const percent = getPercent(brokerageStr, 0.03);
+    brokerage = turnover * percent / 100;
+  }
+
+  const stt = sellValue * getPercent(brokerCharges[`STT ${tradeType}`], 0.1) / 100;
+  const exchKey = `Exchange Transaction Charges ${exchange}`;
+  const exchangeTxn = turnover * getPercent(brokerCharges[exchKey], 0.00325) / 100;
+  const sebi = turnover * getPercent(brokerCharges['SEBI Turnover Charges'], 0.0001) / 100;
+  const gst = (brokerage + exchangeTxn) * 0.18;
+  const stampKey = `Stamp Duty (Buy-side) ${tradeType}`;
+  const stampDuty = buyValue * getPercent(brokerCharges[stampKey], 0.015) / 100;
 
   const totalCharges = brokerage + stt + exchangeTxn + sebi + gst + stampDuty;
   const profitLoss = sellValue - buyValue;
   const netProfit = profitLoss - totalCharges;
 
   document.getElementById("result").innerHTML = `
-    <strong>Gross P/L:</strong> ₹${profitLoss.toFixed(2)}<br>
+    <strong>Buy Value:</strong> ₹${buyValue.toFixed(2)}<br>
+    <strong>Sell Value:</strong> ₹${sellValue.toFixed(2)}<br>
+    <strong>Turnover:</strong> ₹${turnover.toFixed(2)}<br><br>
+
+    <strong>Brokerage:</strong> ₹${brokerage.toFixed(2)} (${brokerageStr})<br>
+    <strong>STT:</strong> ₹${stt.toFixed(2)} (${brokerCharges[`STT ${tradeType}`]})<br>
+    <strong>Exchange Txn Charges:</strong> ₹${exchangeTxn.toFixed(2)} (${brokerCharges[exchKey]})<br>
+    <strong>SEBI Charges:</strong> ₹${sebi.toFixed(2)} (${brokerCharges['SEBI Turnover Charges']})<br>
+    <strong>GST:</strong> ₹${gst.toFixed(2)} (18% on brokerage + exchange)<br>
+    <strong>Stamp Duty:</strong> ₹${stampDuty.toFixed(2)} (${brokerCharges[stampKey]})<br><br>
+
     <strong>Total Charges:</strong> ₹${totalCharges.toFixed(2)}<br>
+    <strong>Gross P/L:</strong> ₹${profitLoss.toFixed(2)}<br>
     <strong>Net Profit:</strong> ₹${netProfit.toFixed(2)}
   `;
 }
