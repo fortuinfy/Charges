@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Brokerage Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="calculator">
+    <h2>Brokerage Calculator</h2>
+
+    <label>Broker:
+      <select id="brokerSelect"></select>
+    </label>
+
+    <label>Exchange:
+      <select id="exchangeSelect">
+        <option value="NSE">NSE</option>
+        <option value="BSE">BSE</option>
+      </select>
+    </label>
+
+    <label>Trade Type:
+      <select id="tradeTypeSelect">
+        <option value="Intraday">Intraday</option>
+        <option value="Delivery">Delivery</option>
+      </select>
+    </label>
+
+    <label>Buy Price: <input type="number" id="buyPrice"></label>
+    <label>Sell Price: <input type="number" id="sellPrice"></label>
+    <label>Quantity: <input type="number" id="quantity"></label>
+    
+    <button onclick="calculate()">Calculate</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
