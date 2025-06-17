@@ -24,41 +24,43 @@ function populateBrokers(brokers) {
 function toggleSideOptions() {
   const tradeType = document.getElementById("tradeTypeSelect").value;
   const sideSection = document.getElementById("sideSection");
-  const sideSelect = document.getElementById("sideSelect");
 
   if (tradeType === "Delivery") {
     sideSection.style.display = "block";
   } else {
     sideSection.style.display = "none";
-    sideSelect.value = "Both"; // Default to Both
-    document.getElementById("buyPrice").disabled = false;
-    document.getElementById("sellPrice").disabled = false;
+    document.getElementById("sideSelect").value = "Both"; // reset to default
   }
-  toggleInputFields();
+
+  toggleInputFields(); // update input state immediately
 }
 
 function toggleInputFields() {
   const tradeType = document.getElementById("tradeTypeSelect").value;
   const side = document.getElementById("sideSelect").value;
-  const buyInput = document.getElementById("buyPrice");
-  const sellInput = document.getElementById("sellPrice");
+  const buyPriceInput = document.getElementById("buyPrice");
+  const sellPriceInput = document.getElementById("sellPrice");
 
   if (tradeType === "Delivery") {
     if (side === "Buy") {
-      buyInput.disabled = false;
-      sellInput.disabled = true;
+      buyPriceInput.disabled = false;
+      sellPriceInput.disabled = true;
+      sellPriceInput.value = ''; // clear disabled input
     } else if (side === "Sell") {
-      buyInput.disabled = true;
-      sellInput.disabled = false;
+      buyPriceInput.disabled = true;
+      buyPriceInput.value = ''; // clear disabled input
+      sellPriceInput.disabled = false;
     } else {
-      buyInput.disabled = false;
-      sellInput.disabled = false;
+      buyPriceInput.disabled = false;
+      sellPriceInput.disabled = false;
     }
   } else {
-    buyInput.disabled = false;
-    sellInput.disabled = false;
+    // Intraday - always enable both
+    buyPriceInput.disabled = false;
+    sellPriceInput.disabled = false;
   }
 }
+
 
 function getPercent(str) {
   if (str.toLowerCase().includes("free")) return 0;
