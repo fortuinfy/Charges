@@ -48,8 +48,18 @@ function enableInputs(side) {
   const buy = document.getElementById("buyPrice");
   const sell = document.getElementById("sellPrice");
 
-  buy.disabled = (side === "Sell Only");
-  sell.disabled = (side === "Buy Only");
+  if (side === "Buy Only") {
+    buy.disabled = false;
+    sell.disabled = true;
+    sell.value = ""; // Clear sell input
+  } else if (side === "Sell Only") {
+    buy.disabled = true;
+    sell.disabled = false;
+    buy.value = ""; // Clear buy input
+  } else {
+    buy.disabled = false;
+    sell.disabled = false;
+  }
 }
 
 function calculateCharges() {
