@@ -1,107 +1,113 @@
-let chargesData = {};
+let brokersData = {};
 
-fetch("charges.json")
-  .then((res) => res.json())
-  .then((data) => {
-    chargesData = data;
-    populateBrokers();
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  loadBrokers();
 
-function populateBrokers() {
-  const brokerSelect = document.getElementById("broker");
-  Object.keys(chargesData).forEach((broker) => {
-    const option = document.createElement("option");
-    option.value = broker;
-    option.text = broker;
-    brokerSelect.appendChild(option);
-  });
+  document.getElementById("tradeType").addEventListener("change", toggleSideOptions);
+  document.getElementById("transactionSide").addEventListener("change", toggleInputFields);
+  document.getElementById("calculateBtn").addEventListener("click", calculateCharges);
+});
+
+async function loadBrokers() {
+  try {
+    const res = await fetch("charges.json");
+    brokersData = await res.json();
+
+    const brokerSelect = document.getElementById("broker");
+    brokerSelect.innerHTML = '<option value="">-- Select Broker --</option>';
+    Object.keys(brokersData).forEach(broker => {
+      const opt = document.createElement("option");
+      opt.value = broker;
+      opt.textContent = broker;
+      brokerSelect.appendChild(opt);
+    });
+  } catch (err) {
+    console.error("Error loading broker data:", err);
+  }
 }
 
-document.getElementById("tradeType").addEventListener("change", function () {
-  const transactionGroup = document.getElementById("transactionSideGroup");
-  if (this.value === "Delivery") {
-    transactionGroup.style.display = "block";
+function toggleSideOptions() {
+  const tradeType = document.getElementById("tradeType").value;
+  const sideGroup = document.getElementById("transactionSideGroup");
+
+  if (tradeType === "Delivery") {
+    sideGroup.style.display = "block";
   } else {
-    transactionGroup.style.display = "none";
+    sideGroup.style.display = "none";
     document.getElementById("transactionSide").value = "Both";
-    document.getElementById("buyPrice").disabled = false;
-    document.getElementById("sellPrice").disabled = false;
+    enableInputs("Both");
   }
-});
+}
 
-document.getElementById("transactionSide").addEventListener("change", function () {
-  const buyInput = document.getElementById("buyPrice");
-  const sellInput = document.getElementById("sellPrice");
+function toggleInputFields() {
+  const side = document.getElementById("transactionSide").value;
+  enableInputs(side);
+}
 
-  if (this.value === "Buy Only") {
-    buyInput.disabled = false;
-    sellInput.disabled = true;
-  } else if (this.value === "Sell Only") {
-    buyInput.disabled = true;
-    sellInput.disabled = false;
-  } else {
-    buyInput.disabled = false;
-    sellInput.disabled = false;
-  }
-});
+function enableInputs(side) {
+  const buy = document.getElementById("buyPrice");
+  const sell = document.getElementById("sellPrice");
 
-document.getElementById("calculateBtn").addEventListener("click", () => {
+  buy.disabled = (side === "Sell Only");
+  sell.disabled = (side === "Buy Only");
+}
+
+function calculateCharges() {
   const broker = document.getElementById("broker").value;
   const exchange = document.getElementById("exchange").value;
   const tradeType = document.getElementById("tradeType").value;
-  const transactionSide =
-    tradeType === "Delivery"
-      ? document.getElementById("transactionSide").value
-      : "Both";
+  const transactionSide = (tradeType === "Delivery")
+    ? document.getElementById("transactionSide").value
+    : "Both";
   const buyPrice = parseFloat(document.getElementById("buyPrice").value) || 0;
   const sellPrice = parseFloat(document.getElementById("sellPrice").value) || 0;
   const quantity = parseInt(document.getElementById("quantity").value) || 0;
 
-  const chargeSet = chargesData[broker][exchange][tradeType];
-  let buyValue = buyPrice * quantity;
-  let sellValue = sellPrice * quantity;
+  const resultDiv = document.getElementById("result");
 
-  let totalCharges = 0;
-  let chargeDetails = [];
-
-  function calculateCharges(value, type) {
-    let subtotal = 0;
-    for (let key in chargeSet[type]) {
-      let chargeRate = chargeSet[type][key];
-      let chargeAmount = 0;
-
-      if (typeof chargeRate === "string" && chargeRate.includes("%")) {
-        let rate = parseFloat(chargeRate) / 100;
-        chargeAmount = value * rate;
-      } else {
-        chargeAmount = parseFloat(chargeRate);
-      }
-
-      chargeDetails.push(`${type} ${key}: ₹${chargeAmount.toFixed(2)}`);
-      subtotal += chargeAmount;
-    }
-    return subtotal;
+  if (!broker || !brokersData[broker]) {
+    resultDiv.innerHTML = "<p style='color:red'>Broker data not found.</p>";
+    return;
   }
 
-  if (transactionSide === "Both" || transactionSide === "Buy Only") {
-    totalCharges += calculateCharges(buyValue, "buy");
-  }
+  const brokerInfo = brokersData[broker][exchange][tradeType];
+  const buyValue = (transactionSide !== "Sell Only") ? buyPrice * quantity : 0;
+  const sellValue = (transactionSide !== "Buy Only") ? sellPrice * quantity : 0;
+  const turnover = buyValue + sellValue;
 
-  if (transactionSide === "Both" || transactionSide === "Sell Only") {
-    totalCharges += calculateCharges(sellValue, "sell");
-  }
+  const brokerage = Math.min(
+    (brokerInfo.brokerage / 100) * turnover,
+    brokerInfo.brokerage_cap
+  );
 
-  const gross = sellValue - buyValue;
-  const netProfit = gross - totalCharges;
+  const stt = brokerInfo.stt_rate / 100 * (transactionSide === "Buy Only" ? buyValue : sellValue);
+  const exchangeTxn = brokerInfo.exchange_txn_charge / 100 * turnover;
+  const sebiCharges = brokerInfo.sebi_charges / 100 * turnover;
+  const gst = brokerInfo.gst_rate / 100 * (brokerage + exchangeTxn);
+  const stampDuty = (transactionSide !== "Sell Only")
+    ? brokerInfo.stamp_duty / 100 * buyValue
+    : 0;
 
-  document.getElementById("result").innerHTML = `
+  const totalCharges = brokerage + stt + exchangeTxn + sebiCharges + gst + stampDuty;
+  const grossPL = sellValue - buyValue;
+  const netPL = grossPL - totalCharges;
+
+  resultDiv.innerHTML = `
     <h3>📊 Trade Summary:</h3>
     <p>Buy Value (₹${buyPrice} × ${quantity}): ₹${buyValue.toFixed(2)}</p>
     <p>Sell Value (₹${sellPrice} × ${quantity}): ₹${sellValue.toFixed(2)}</p>
-    <h4>🔍 Charges Breakdown:</h4>
-    <ul>${chargeDetails.map((c) => `<li>${c}</li>`).join("")}</ul>
-    <p><strong>Total Charges:</strong> ₹${totalCharges.toFixed(2)}</p>
-    <p><strong>Gross P/L:</strong> ₹${gross.toFixed(2)}</p>
-    <p><strong>Net Profit:</strong> ₹${netProfit.toFixed(2)}</p>
+    <h3>💰 Charges Breakdown:</h3>
+    <ul>
+      <li>Brokerage: ₹${brokerage.toFixed(2)}</li>
+      <li>STT: ₹${stt.toFixed(2)}</li>
+      <li>Exchange Transaction Charges: ₹${exchangeTxn.toFixed(2)}</li>
+      <li>SEBI Charges: ₹${sebiCharges.toFixed(2)}</li>
+      <li>GST: ₹${gst.toFixed(2)}</li>
+      <li>Stamp Duty: ₹${stampDuty.toFixed(2)}</li>
+    </ul>
+    <h3>🧾 Summary:</h3>
+    <p>Total Charges: ₹${totalCharges.toFixed(2)}</p>
+    <p>Gross P/L: ₹${grossPL.toFixed(2)}</p>
+    <p><strong>Net P/L: ₹${netPL.toFixed(2)}</strong></p>
   `;
-});
+}
