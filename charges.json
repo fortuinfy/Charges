@@ -1,57 +1,282 @@
 {
   "Groww": {
-    "Intraday Brokerage": "0.03%",
-    "Delivery Brokerage": "Free",
-    "STT Intraday": "0.025%",
-    "STT Delivery": "0.1%",
-    "Exchange Transaction Charges NSE": "0.00325%",
-    "Exchange Transaction Charges BSE": "0.003%",
-    "SEBI Turnover Charges": "0.0001%",
-    "Stamp Duty (Buy-side) Intraday": "0.003%",
-    "Stamp Duty (Buy-side) Delivery": "0.015%"
+    "NSE": {
+      "Intraday": {
+        "buy": {
+          "brokerage": "0.03%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.003%"
+        },
+        "sell": {
+          "brokerage": "0.03%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      },
+      "Delivery": {
+        "buy": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.015%"
+        },
+        "sell": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      }
+    },
+    "BSE": {
+      "Intraday": {
+        "buy": {
+          "brokerage": "0.03%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00275%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.003%"
+        },
+        "sell": {
+          "brokerage": "0.03%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00275%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      },
+      "Delivery": {
+        "buy": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00275%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.015%"
+        },
+        "sell": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00275%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      }
+    }
   },
+
   "IND Money": {
-    "Intraday Brokerage": "0.03%",
-    "Delivery Brokerage": "Free",
-    "STT Intraday": "0.025%",
-    "STT Delivery": "0.1%",
-    "Exchange Transaction Charges NSE": "0.00325%",
-    "Exchange Transaction Charges BSE": "0.003%",
-    "SEBI Turnover Charges": "0.0001%",
-    "Stamp Duty (Buy-side) Intraday": "0.003%",
-    "Stamp Duty (Buy-side) Delivery": "0.015%"
+    "NSE": {
+      "Intraday": {
+        "buy": {
+          "brokerage": "0.01%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.003%"
+        },
+        "sell": {
+          "brokerage": "0.01%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      },
+      "Delivery": {
+        "buy": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.015%"
+        },
+        "sell": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      }
+    },
+    "BSE": {
+      "Intraday": {
+        "buy": {
+          "brokerage": "0.01%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00275%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.003%"
+        },
+        "sell": {
+          "brokerage": "0.01%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00275%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      },
+      "Delivery": {
+        "buy": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00275%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.015%"
+        },
+        "sell": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00275%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      }
+    }
   },
+
   "Upstox": {
-    "Intraday Brokerage": "0.05%",
-    "Delivery Brokerage": "Free",
-    "STT Intraday": "0.025%",
-    "STT Delivery": "0.1%",
-    "Exchange Transaction Charges NSE": "0.00325%",
-    "Exchange Transaction Charges BSE": "0.003%",
-    "SEBI Turnover Charges": "0.0001%",
-    "Stamp Duty (Buy-side) Intraday": "0.003%",
-    "Stamp Duty (Buy-side) Delivery": "0.015%"
+    "NSE": {
+      "Intraday": {
+        "buy": {
+          "brokerage": "0.05%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.003%"
+        },
+        "sell": {
+          "brokerage": "0.05%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      },
+      "Delivery": {
+        "buy": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.015%"
+        },
+        "sell": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      }
+    }
   },
+
   "Zerodha": {
-    "Intraday Brokerage": "0.03%",
-    "Delivery Brokerage": "Free",
-    "STT Intraday": "0.025%",
-    "STT Delivery": "0.1%",
-    "Exchange Transaction Charges NSE": "0.00325%",
-    "Exchange Transaction Charges BSE": "0.003%",
-    "SEBI Turnover Charges": "0.0001%",
-    "Stamp Duty (Buy-side) Intraday": "0.003%",
-    "Stamp Duty (Buy-side) Delivery": "0.015%"
+    "NSE": {
+      "Intraday": {
+        "buy": {
+          "brokerage": "0.03%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.003%"
+        },
+        "sell": {
+          "brokerage": "0.03%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      },
+      "Delivery": {
+        "buy": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.015%"
+        },
+        "sell": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      }
+    }
   },
+
   "5 Paisa": {
-    "Intraday Brokerage": "₹10 per order",
-    "Delivery Brokerage": "₹20 per order",
-    "STT Intraday": "0.025%",
-    "STT Delivery": "0.1%",
-    "Exchange Transaction Charges NSE": "0.00325%",
-    "Exchange Transaction Charges BSE": "0.003%",
-    "SEBI Turnover Charges": "0.0001%",
-    "Stamp Duty (Buy-side) Intraday": "0.003%",
-    "Stamp Duty (Buy-side) Delivery": "0.015%"
+    "NSE": {
+      "Intraday": {
+        "buy": {
+          "brokerage": "0.05%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.003%"
+        },
+        "sell": {
+          "brokerage": "0.05%",
+          "stt": "0.025%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      },
+      "Delivery": {
+        "buy": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0.015%"
+        },
+        "sell": {
+          "brokerage": "0",
+          "stt": "0.1%",
+          "exchange_txn": "0.00345%",
+          "gst": "18%",
+          "sebi": "0.0001%",
+          "stamp": "0%"
+        }
+      }
+    }
   }
 }
