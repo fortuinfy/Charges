@@ -1,10 +1,17 @@
 let chargesData = {};
 
 fetch('charges.json')
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) throw new Error("Failed to load charges.json");
+    return response.json();
+  })
   .then(data => {
     chargesData = data;
     populateBrokers(Object.keys(data));
+  })
+  .catch(error => {
+    console.error("Error loading charges.json:", error);
+    alert("Could not load charges data.");
   });
 
 function populateBrokers(brokers) {
@@ -35,17 +42,19 @@ function calculate() {
   const buyValue = buyPrice * quantity;
   const sellValue = sellPrice * quantity;
 
-  // Dummy extraction from text, real parsing logic needed for advanced version
-  const brokeragePercent = brokerCharges[`${tradeType} Brokerage`].includes('%')
-    ? parseFloat(brokerCharges[`${tradeType} Brokerage`].match(/[\d.]+/)[0])
-    : 0.03;
+  // Extract % values
+  const getPercent = (str, fallback = 0) => {
+    const match = str.match(/[\d.]+/);
+    return match ? parseFloat(match[0]) : fallback;
+  };
 
-  const sttPercent = parseFloat(brokerCharges[`STT ${tradeType}`].match(/[\d.]+/)[0]) || 0.1;
+  const brokeragePercent = getPercent(brokerCharges[`${tradeType} Brokerage`], 0.03);
+  const sttPercent = getPercent(brokerCharges[`STT ${tradeType}`], 0.1);
   const exchKey = `Exchange Transaction Charges ${exchange}`;
-  const exchPercent = parseFloat(brokerCharges[exchKey].match(/[\d.]+/)[0]) || 0.00325;
-  const sebiPercent = parseFloat(brokerCharges['SEBI Turnover Charges'].match(/[\d.]+/)[0]) || 0.0001;
+  const exchPercent = getPercent(brokerCharges[exchKey], 0.00325);
+  const sebiPercent = getPercent(brokerCharges['SEBI Turnover Charges'], 0.0001);
   const stampKey = `Stamp Duty (Buy-side) ${tradeType}`;
-  const stampPercent = parseFloat(brokerCharges[stampKey].match(/[\d.]+/)[0]) || 0.015;
+  const stampPercent = getPercent(brokerCharges[stampKey], 0.015);
 
   const brokerage = ((buyValue + sellValue) * brokeragePercent) / 100;
   const stt = (sellValue * sttPercent) / 100;
