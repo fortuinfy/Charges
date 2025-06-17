@@ -2,34 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Brokerage Calculator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="calculator">
+  <div class="container">
     <h2>Brokerage Calculator</h2>
 
-    <label>Broker:
-      <select id="brokerSelect"></select>
-    </label>
+    <label for="brokerSelect">Broker:</label>
+    <select id="brokerSelect"></select>
 
-    <label>Exchange:
-      <select id="exchangeSelect">
-        <option value="NSE">NSE</option>
-        <option value="BSE">BSE</option>
-      </select>
-    </label>
+    <label for="exchangeSelect">Exchange:</label>
+    <select id="exchangeSelect">
+      <option value="NSE">NSE</option>
+      <option value="BSE">BSE</option>
+    </select>
 
-    <label>Trade Type:
-      <select id="tradeTypeSelect">
-        <option value="Intraday">Intraday</option>
-        <option value="Delivery">Delivery</option>
-      </select>
-    </label>
+    <label for="tradeTypeSelect">Trade Type:</label>
+    <select id="tradeTypeSelect">
+      <option value="Intraday">Intraday</option>
+      <option value="Delivery">Delivery</option>
+    </select>
 
-    <label>Buy Price: <input type="number" id="buyPrice" /></label>
-    <label>Sell Price: <input type="number" id="sellPrice" /></label>
-    <label>Quantity: <input type="number" id="quantity" /></label>
+    <label for="sideSelect">Transaction Side:</label>
+    <select id="sideSelect">
+      <option value="Both">Buy & Sell</option>
+      <option value="Buy">Buy Only</option>
+      <option value="Sell">Sell Only</option>
+    </select>
+
+    <label for="buyPrice">Buy Price:</label>
+    <input type="number" id="buyPrice" />
+
+    <label for="sellPrice">Sell Price:</label>
+    <input type="number" id="sellPrice" />
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" />
 
     <button onclick="calculate()">Calculate</button>
 
