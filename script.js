@@ -21,6 +21,12 @@ function populateBrokers(brokers) {
   });
 }
 
+function toggleSideOptions() {
+  const tradeType = document.getElementById("tradeTypeSelect").value;
+  const sideSection = document.getElementById("sideSection");
+  sideSection.style.display = tradeType === "Delivery" ? "block" : "none";
+}
+
 function getPercent(str) {
   if (str.toLowerCase().includes("free")) return 0;
   const match = str.match(/[\d.]+/);
@@ -36,7 +42,7 @@ function calculate() {
   const broker = document.getElementById("brokerSelect").value;
   const exchange = document.getElementById("exchangeSelect").value;
   const tradeType = document.getElementById("tradeTypeSelect").value;
-  const side = document.getElementById("sideSelect").value;
+  const side = tradeType === "Delivery" ? document.getElementById("sideSelect").value : "Both";
   const buyPrice = parseFloat(document.getElementById("buyPrice").value);
   const sellPrice = parseFloat(document.getElementById("sellPrice").value);
   const quantity = parseInt(document.getElementById("quantity").value);
