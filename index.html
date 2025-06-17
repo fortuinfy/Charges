@@ -4,46 +4,50 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Brokerage Calculator</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <h2>Brokerage Calculator</h2>
-    <label for="brokerSelect">Broker:</label>
-    <select id="brokerSelect"></select>
-
-    <label for="exchangeSelect">Exchange:</label>
-    <select id="exchangeSelect">
-      <option value="NSE">NSE</option>
-      <option value="BSE">BSE</option>
-    </select>
-
-    <label for="tradeTypeSelect">Trade Type:</label>
-    <select id="tradeTypeSelect" onchange="toggleSideOptions()">
-      <option value="Intraday">Intraday</option>
-      <option value="Delivery">Delivery</option>
-    </select>
-
-    <div id="sideSection" style="display: none;">
-      <label for="sideSelect">Transaction Side:</label>
-      <select id="sideSelect" onchange="toggleInputFields()">
-        <option value="Both">Buy & Sell</option>
-        <option value="Buy">Buy Only</option>
-        <option value="Sell">Sell Only</option>
+    <div class="form-group">
+      <label>Broker:</label>
+      <select id="broker"></select>
+    </div>
+    <div class="form-group">
+      <label>Exchange:</label>
+      <select id="exchange">
+        <option value="NSE">NSE</option>
+        <option value="BSE">BSE</option>
       </select>
     </div>
-
-    <label for="buyPrice">Buy Price:</label>
-    <input type="number" id="buyPrice" />
-
-    <label for="sellPrice">Sell Price:</label>
-    <input type="number" id="sellPrice" />
-
-    <label for="quantity">Quantity:</label>
-    <input type="number" id="quantity" />
-
-    <button onclick="calculate()">Calculate</button>
-
+    <div class="form-group">
+      <label>Trade Type:</label>
+      <select id="tradeType">
+        <option value="Intraday">Intraday</option>
+        <option value="Delivery">Delivery</option>
+      </select>
+    </div>
+    <div class="form-group" id="transactionSideGroup" style="display:none;">
+      <label>Transaction Side:</label>
+      <select id="transactionSide">
+        <option value="Both">Both</option>
+        <option value="Buy Only">Buy Only</option>
+        <option value="Sell Only">Sell Only</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Buy Price:</label>
+      <input type="number" id="buyPrice" />
+    </div>
+    <div class="form-group">
+      <label>Sell Price:</label>
+      <input type="number" id="sellPrice" />
+    </div>
+    <div class="form-group">
+      <label>Quantity:</label>
+      <input type="number" id="quantity" />
+    </div>
+    <button id="calculateBtn">Calculate</button>
     <div id="result"></div>
   </div>
 
