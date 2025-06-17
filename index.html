@@ -4,12 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Brokerage Calculator</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <div class="container">
     <h2>Brokerage Calculator</h2>
-
     <label for="brokerSelect">Broker:</label>
     <select id="brokerSelect"></select>
 
@@ -20,20 +19,19 @@
     </select>
 
     <label for="tradeTypeSelect">Trade Type:</label>
-<select id="tradeTypeSelect" onchange="toggleSideOptions()">
-  <option value="Intraday">Intraday</option>
-  <option value="Delivery">Delivery</option>
-</select>
+    <select id="tradeTypeSelect" onchange="toggleSideOptions()">
+      <option value="Intraday">Intraday</option>
+      <option value="Delivery">Delivery</option>
+    </select>
 
-<div id="sideSection" style="display: none;">
-  <label for="sideSelect">Transaction Side:</label>
-  <select id="sideSelect" onchange="toggleInputFields()">
-    <option value="Both">Buy & Sell</option>
-    <option value="Buy">Buy Only</option>
-    <option value="Sell">Sell Only</option>
-  </select>
-</div>
-
+    <div id="sideSection" style="display: none;">
+      <label for="sideSelect">Transaction Side:</label>
+      <select id="sideSelect" onchange="toggleInputFields()">
+        <option value="Both">Buy & Sell</option>
+        <option value="Buy">Buy Only</option>
+        <option value="Sell">Sell Only</option>
+      </select>
+    </div>
 
     <label for="buyPrice">Buy Price:</label>
     <input type="number" id="buyPrice" />
