@@ -1,56 +1,15 @@
-let chargesData;
+let chargesData = {};
 
-document.addEventListener("DOMContentLoaded", () => {
-  fetch("charges.json")
-    .then(res => res.json())
-    .then(data => {
-      chargesData = data;
-      populateBrokers();
-    });
-
-  const tradeType = document.getElementById("tradeType");
-  const transactionSide = document.getElementById("transactionSide");
-  const transactionSideGroup = document.getElementById("transactionSideGroup");
-  const buyPrice = document.getElementById("buyPrice");
-  const sellPrice = document.getElementById("sellPrice");
-
-  tradeType.addEventListener("change", () => {
-    if (tradeType.value === "Delivery") {
-      transactionSideGroup.style.display = "block";
-    } else {
-      transactionSideGroup.style.display = "none";
-      transactionSide.value = "Both";
-      buyPrice.disabled = false;
-      sellPrice.disabled = false;
-    }
-    updateInputs();
+fetch('charges.json')
+  .then(res => res.json())
+  .then(data => {
+    chargesData = data;
+    populateBrokers();
   });
-
-  transactionSide.addEventListener("change", updateInputs);
-  document.getElementById("calculateBtn").addEventListener("click", calculateCharges);
-});
-
-function updateInputs() {
-  const transactionSide = document.getElementById("transactionSide").value;
-  const buyInput = document.getElementById("buyPrice");
-  const sellInput = document.getElementById("sellPrice");
-
-  if (transactionSide === "Buy Only") {
-    sellInput.value = "";
-    sellInput.disabled = true;
-    buyInput.disabled = false;
-  } else if (transactionSide === "Sell Only") {
-    buyInput.value = "";
-    buyInput.disabled = true;
-    sellInput.disabled = false;
-  } else {
-    buyInput.disabled = false;
-    sellInput.disabled = false;
-  }
-}
 
 function populateBrokers() {
   const brokerSelect = document.getElementById("broker");
+  brokerSelect.innerHTML = '<option value="">Select Broker</option>';
   Object.keys(chargesData).forEach(broker => {
     const option = document.createElement("option");
     option.value = broker;
@@ -59,58 +18,82 @@ function populateBrokers() {
   });
 }
 
-function calculateCharges() {
+document.getElementById("tradeType").addEventListener("change", function() {
+  const sideGroup = document.getElementById("transactionSideGroup");
+  if (this.value === "Delivery") {
+    sideGroup.style.display = "block";
+  } else {
+    sideGroup.style.display = "none";
+    document.getElementById("transactionSide").value = "Both";
+  }
+});
+
+document.getElementById("transactionSide").addEventListener("change", function () {
+  const side = this.value;
+  const buyInput = document.getElementById("buyPrice");
+  const sellInput = document.getElementById("sellPrice");
+
+  if (side === "Buy Only") {
+    sellInput.disabled = true;
+    sellInput.value = '';
+    buyInput.disabled = false;
+  } else if (side === "Sell Only") {
+    buyInput.disabled = true;
+    buyInput.value = '';
+    sellInput.disabled = false;
+  } else {
+    buyInput.disabled = false;
+    sellInput.disabled = false;
+  }
+});
+
+document.getElementById("calculateBtn").addEventListener("click", () => {
   const broker = document.getElementById("broker").value;
   const exchange = document.getElementById("exchange").value;
   const tradeType = document.getElementById("tradeType").value;
-  const transactionSide = tradeType === "Delivery"
-    ? document.getElementById("transactionSide").value
-    : "Both";
-
+  const transactionSide = document.getElementById("transactionSide").value;
   const buyPrice = parseFloat(document.getElementById("buyPrice").value) || 0;
   const sellPrice = parseFloat(document.getElementById("sellPrice").value) || 0;
-  const quantity = parseInt(document.getElementById("quantity").value) || 0;
+  const quantity = parseFloat(document.getElementById("quantity").value);
 
-  if (!chargesData[broker] || !chargesData[broker][exchange] || !chargesData[broker][exchange][tradeType]) {
-    document.getElementById("result").innerHTML = "<p>Broker data not found.</p>";
+  const resultDiv = document.getElementById("result");
+
+  if (!chargesData[broker] || !chargesData[broker][tradeType] || !chargesData[broker][tradeType][exchange]) {
+    resultDiv.innerHTML = "Broker data not found.";
     return;
   }
 
-  const brokerData = chargesData[broker][exchange][tradeType];
-  const buyValue = (transactionSide === "Sell Only") ? 0 : buyPrice * quantity;
-  const sellValue = (transactionSide === "Buy Only") ? 0 : sellPrice * quantity;
-  const turnover = buyValue + sellValue;
+  const charges = chargesData[broker][tradeType][exchange];
 
-  const brokerage = Math.min(turnover * brokerData.brokerage, brokerData.brokerage_max || Infinity);
-  const sttBase = (transactionSide === "Buy Only") ? buyValue : sellValue;
-  const stt = sttBase * brokerData.stt;
-  const etc = turnover * brokerData.etc;
-  const sebi = turnover * brokerData.sebi;
-  const gst = (brokerage + etc) * brokerData.gst;
-  const stampDuty = (transactionSide === "Sell Only") ? 0 : buyValue * brokerData.stamp_duty;
+  const turnover = ((transactionSide !== "Sell Only" ? buyPrice : 0) + (transactionSide !== "Buy Only" ? sellPrice : 0)) * quantity;
+  const brokerage = charges.brokerage.includes('%') ? Math.min(turnover * parseFloat(charges.brokerage.replace('%','')) / 100, 20) : parseFloat(charges.brokerage.replace(/[₹,]/g, ''));
 
-  const totalCharges = brokerage + stt + etc + sebi + gst + stampDuty;
-  const grossPL = sellValue - buyValue;
-  const netPL = grossPL - totalCharges;
+  const stt = (transactionSide === "Buy Only")
+    ? buyPrice * quantity * charges.stt / 100
+    : sellPrice * quantity * charges.stt / 100;
 
-  document.getElementById("result").innerHTML = `
-    <h3>📊 Trade Summary:</h3>
-    <p>Buy Value (₹${buyPrice} × ${quantity}): ₹${buyValue.toFixed(2)}</p>
-    <p>Sell Value (₹${sellPrice} × ${quantity}): ₹${sellValue.toFixed(2)}</p>
+  const exchangeTxn = turnover * charges.exchange_txn / 100;
+  const sebiCharges = turnover * charges.sebi / 100;
+  const ipftCharges = turnover * (charges.ipft || 0) / 100;
+  const gst = (brokerage + exchangeTxn) * charges.gst / 100;
+  const stampDuty = (transactionSide === "Buy Only" || transactionSide === "Both")
+    ? buyPrice * quantity * charges.stamp_duty / 100
+    : 0;
 
-    <h3>💰 Charges Breakdown:</h3>
-    <ul>
-      <li>Brokerage: ₹${brokerage.toFixed(2)}</li>
-      <li>STT: ₹${stt.toFixed(2)}</li>
-      <li>Exchange Transaction Charges: ₹${etc.toFixed(2)}</li>
-      <li>SEBI Charges: ₹${sebi.toFixed(2)}</li>
-      <li>GST: ₹${gst.toFixed(2)}</li>
-      <li>Stamp Duty: ₹${stampDuty.toFixed(2)}</li>
-    </ul>
+  const dpCharges = (tradeType === "Delivery" && (transactionSide === "Sell Only" || transactionSide === "Both")) ? charges.dp_charges : 0;
 
-    <h3>🧾 Summary:</h3>
-    <p>Total Charges: ₹${totalCharges.toFixed(2)}</p>
-    <p>Gross P/L: ₹${grossPL.toFixed(2)}</p>
-    <p><strong>Net P/L: ₹${netPL.toFixed(2)}</strong></p>
+  const totalCharges = brokerage + stt + exchangeTxn + sebiCharges + gst + stampDuty + dpCharges + ipftCharges;
+
+  resultDiv.innerHTML = `
+    <strong>Total Charges:</strong> ₹${totalCharges.toFixed(2)}<br/><br/>
+    <strong>Breakdown:</strong><br/>
+    Brokerage: ₹${brokerage.toFixed(2)}<br/>
+    STT: ₹${stt.toFixed(2)}<br/>
+    Exchange Txn: ₹${exchangeTxn.toFixed(2)}<br/>
+    SEBI: ₹${sebiCharges.toFixed(2)}<br/>
+    GST: ₹${gst.toFixed(2)}<br/>
+    Stamp Duty: ₹${stampDuty.toFixed(2)}<br/>
+    IPFT Charges: ₹${ipftCharges.toFixed(2)}<br/>
+    DP Charges: ₹${dpCharges.toFixed(2)}<br/>
   `;
-}
+});
