@@ -9,28 +9,45 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   const tradeType = document.getElementById("tradeType");
-  const transactionSideGroup = document.getElementById("transactionSideGroup");
   const transactionSide = document.getElementById("transactionSide");
-  const buyPriceInput = document.getElementById("buyPrice");
-  const sellPriceInput = document.getElementById("sellPrice");
+  const transactionSideGroup = document.getElementById("transactionSideGroup");
+  const buyPrice = document.getElementById("buyPrice");
+  const sellPrice = document.getElementById("sellPrice");
 
   tradeType.addEventListener("change", () => {
     if (tradeType.value === "Delivery") {
       transactionSideGroup.style.display = "block";
-      handleTransactionSide(transactionSide.value);
     } else {
       transactionSideGroup.style.display = "none";
-      buyPriceInput.disabled = false;
-      sellPriceInput.disabled = false;
+      transactionSide.value = "Both";
+      buyPrice.disabled = false;
+      sellPrice.disabled = false;
     }
+    updateInputs();
   });
 
-  transactionSide.addEventListener("change", () => {
-    handleTransactionSide(transactionSide.value);
-  });
-
+  transactionSide.addEventListener("change", updateInputs);
   document.getElementById("calculateBtn").addEventListener("click", calculateCharges);
 });
+
+function updateInputs() {
+  const transactionSide = document.getElementById("transactionSide").value;
+  const buyInput = document.getElementById("buyPrice");
+  const sellInput = document.getElementById("sellPrice");
+
+  if (transactionSide === "Buy Only") {
+    sellInput.value = "";
+    sellInput.disabled = true;
+    buyInput.disabled = false;
+  } else if (transactionSide === "Sell Only") {
+    buyInput.value = "";
+    buyInput.disabled = true;
+    sellInput.disabled = false;
+  } else {
+    buyInput.disabled = false;
+    sellInput.disabled = false;
+  }
+}
 
 function populateBrokers() {
   const brokerSelect = document.getElementById("broker");
@@ -40,24 +57,6 @@ function populateBrokers() {
     option.textContent = broker;
     brokerSelect.appendChild(option);
   });
-}
-
-function handleTransactionSide(side) {
-  const buyPriceInput = document.getElementById("buyPrice");
-  const sellPriceInput = document.getElementById("sellPrice");
-
-  if (side === "Buy Only") {
-    sellPriceInput.value = "";
-    sellPriceInput.disabled = true;
-    buyPriceInput.disabled = false;
-  } else if (side === "Sell Only") {
-    buyPriceInput.value = "";
-    buyPriceInput.disabled = true;
-    sellPriceInput.disabled = false;
-  } else {
-    buyPriceInput.disabled = false;
-    sellPriceInput.disabled = false;
-  }
 }
 
 function calculateCharges() {
@@ -72,27 +71,23 @@ function calculateCharges() {
   const sellPrice = parseFloat(document.getElementById("sellPrice").value) || 0;
   const quantity = parseInt(document.getElementById("quantity").value) || 0;
 
-  if (!chargesData[broker]) {
+  if (!chargesData[broker] || !chargesData[broker][exchange] || !chargesData[broker][exchange][tradeType]) {
     document.getElementById("result").innerHTML = "<p>Broker data not found.</p>";
     return;
   }
 
-  const brokerData = chargesData[broker][exchange]?.[tradeType];
-  if (!brokerData) {
-    document.getElementById("result").innerHTML = "<p>Broker data not found for selected type.</p>";
-    return;
-  }
-
-  const buyValue = transactionSide === "Sell Only" ? 0 : buyPrice * quantity;
-  const sellValue = transactionSide === "Buy Only" ? 0 : sellPrice * quantity;
+  const brokerData = chargesData[broker][exchange][tradeType];
+  const buyValue = (transactionSide === "Sell Only") ? 0 : buyPrice * quantity;
+  const sellValue = (transactionSide === "Buy Only") ? 0 : sellPrice * quantity;
   const turnover = buyValue + sellValue;
 
   const brokerage = Math.min(turnover * brokerData.brokerage, brokerData.brokerage_max || Infinity);
-  const stt = (transactionSide === "Buy Only" ? buyValue : sellValue) * brokerData.stt;
+  const sttBase = (transactionSide === "Buy Only") ? buyValue : sellValue;
+  const stt = sttBase * brokerData.stt;
   const etc = turnover * brokerData.etc;
   const sebi = turnover * brokerData.sebi;
   const gst = (brokerage + etc) * brokerData.gst;
-  const stampDuty = (transactionSide === "Sell Only" ? 0 : buyValue * brokerData.stamp_duty);
+  const stampDuty = (transactionSide === "Sell Only") ? 0 : buyValue * brokerData.stamp_duty;
 
   const totalCharges = brokerage + stt + etc + sebi + gst + stampDuty;
   const grossPL = sellValue - buyValue;
