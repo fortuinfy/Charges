@@ -9,10 +9,12 @@
 <body>
   <div class="container">
     <h2>Brokerage Calculator</h2>
+
     <div class="form-group">
       <label>Broker:</label>
       <select id="broker"></select>
     </div>
+
     <div class="form-group">
       <label>Exchange:</label>
       <select id="exchange">
@@ -20,6 +22,7 @@
         <option value="BSE">BSE</option>
       </select>
     </div>
+
     <div class="form-group">
       <label>Trade Type:</label>
       <select id="tradeType">
@@ -27,6 +30,7 @@
         <option value="Delivery">Delivery</option>
       </select>
     </div>
+
     <div class="form-group" id="transactionSideGroup" style="display:none;">
       <label>Transaction Side:</label>
       <select id="transactionSide">
@@ -35,18 +39,22 @@
         <option value="Sell Only">Sell Only</option>
       </select>
     </div>
+
     <div class="form-group">
       <label>Buy Price:</label>
       <input type="number" id="buyPrice" />
     </div>
+
     <div class="form-group">
       <label>Sell Price:</label>
       <input type="number" id="sellPrice" />
     </div>
+
     <div class="form-group">
       <label>Quantity:</label>
       <input type="number" id="quantity" />
     </div>
+
     <button id="calculateBtn">Calculate</button>
     <div id="result"></div>
   </div>
