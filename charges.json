@@ -30,7 +30,7 @@
         "sebi": 0.0001,
         "gst": 18,
         "stamp_duty": 0.015,
-        "dp_charges": 15,
+        "dp_charges": 20,
         "ipft": 0.0001
       },
       "BSE": {
@@ -40,7 +40,7 @@
         "sebi": 0.0001,
         "gst": 18,
         "stamp_duty": 0.015,
-        "dp_charges": 15,
+        "dp_charges": 20,
         "ipft": 0.0001
       }
     }
