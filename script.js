@@ -99,6 +99,8 @@ document.getElementById("calculateBtn").addEventListener("click", () => {
 });
 fetch('charges.json')
   .then(res => res.json())
-  .then(data => console.log("Loaded JSON", data))
-  .catch(err => console.error("Failed to load charges.json", err));
+  .then(data => {
+    chargesData = data;
+    populateBrokers();
+  });
 
