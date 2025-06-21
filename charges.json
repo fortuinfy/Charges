@@ -1,127 +1,191 @@
 {
   "Groww": {
-    "NSE": {
-      "Intraday": {
-        "brokerage": 0.0003,
-        "brokerage_max": 20,
-        "stt": 0.00025,
-        "etc": 0.0000345,
-        "sebi": 0.000001,
-        "gst": 0.18,
-        "stamp_duty": 0.00003
+    "Intraday": {
+      "NSE": {
+        "brokerage_per_order": 20,
+        "stt_percent": 0.025,
+        "exchange_txn_percent": 0.00325,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.003
       },
-      "Delivery": {
-        "brokerage": 0,
-        "brokerage_max": 0,
-        "stt": 0.001,
-        "etc": 0.0000345,
-        "sebi": 0.000001,
-        "gst": 0.18,
-        "stamp_duty": 0.00015
+      "BSE": {
+        "brokerage_per_order": 20,
+        "stt_percent": 0.025,
+        "exchange_txn_percent": 0.00325,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.003
       }
     },
-    "BSE": {
-      "Intraday": {
-        "brokerage": 0.0003,
-        "brokerage_max": 20,
-        "stt": 0.00025,
-        "etc": 0.0000345,
-        "sebi": 0.000001,
-        "gst": 0.18,
-        "stamp_duty": 0.00003
+    "Delivery": {
+      "NSE": {
+        "brokerage_per_order": 0,
+        "stt_percent": 0.1,
+        "exchange_txn_percent": 0.00325,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.015
       },
-      "Delivery": {
-        "brokerage": 0,
-        "brokerage_max": 0,
-        "stt": 0.001,
-        "etc": 0.0000345,
-        "sebi": 0.000001,
-        "gst": 0.18,
-        "stamp_duty": 0.00015
+      "BSE": {
+        "brokerage_per_order": 0,
+        "stt_percent": 0.1,
+        "exchange_txn_percent": 0.00325,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.015
       }
     }
   },
   "Zerodha": {
-    "NSE": {
-      "Intraday": {
-        "brokerage": 0.0003,
-        "brokerage_max": 20,
-        "stt": 0.00025,
-        "etc": 0.0000325,
-        "sebi": 0.000001,
-        "gst": 0.18,
-        "stamp_duty": 0.00003
+    "Intraday": {
+      "NSE": {
+        "brokerage_per_order": 20,
+        "stt_percent": 0.025,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.003
       },
-      "Delivery": {
-        "brokerage": 0,
-        "brokerage_max": 0,
-        "stt": 0.001,
-        "etc": 0.0000325,
-        "sebi": 0.000001,
-        "gst": 0.18,
-        "stamp_duty": 0.00015
+      "BSE": {
+        "brokerage_per_order": 20,
+        "stt_percent": 0.025,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.003
       }
     },
-    "BSE": {
-      "Intraday": {
-        "brokerage": 0.0003,
-        "brokerage_max": 20,
-        "stt": 0.00025,
-        "etc": 0.0000325,
-        "sebi": 0.000001,
-        "gst": 0.18,
-        "stamp_duty": 0.00003
+    "Delivery": {
+      "NSE": {
+        "brokerage_per_order": 0,
+        "stt_percent": 0.1,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.015
       },
-      "Delivery": {
-        "brokerage": 0,
-        "brokerage_max": 0,
-        "stt": 0.001,
-        "etc": 0.0000325,
-        "sebi": 0.000001,
-        "gst": 0.18,
-        "stamp_duty": 0.00015
+      "BSE": {
+        "brokerage_per_order": 0,
+        "stt_percent": 0.1,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.015
+      }
+    }
+  },
+  "Upstox": {
+    "Intraday": {
+      "NSE": {
+        "brokerage_per_order": 20,
+        "stt_percent": 0.025,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.003
+      },
+      "BSE": {
+        "brokerage_per_order": 20,
+        "stt_percent": 0.025,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.003
+      }
+    },
+    "Delivery": {
+      "NSE": {
+        "brokerage_per_order": 20,
+        "stt_percent": 0.1,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.015
+      },
+      "BSE": {
+        "brokerage_per_order": 20,
+        "stt_percent": 0.1,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.015
       }
     }
   },
   "IND Money": {
-    "NSE": {
-      "Intraday": {
-        "brokerage": 0.00025,
-        "brokerage_max": 15,
-        "stt": 0.00025,
-        "etc": 0.00003,
-        "sebi": 0.000001,
-        "gst": 0.18,
-        "stamp_duty": 0.00003
+    "Intraday": {
+      "NSE": {
+        "brokerage_per_order": 0,
+        "stt_percent": 0.025,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.003
       },
-      "Delivery": {
-        "brokerage": 0,
-        "brokerage_max": 0,
-        "stt": 0.001,
-        "etc": 0.00003,
-        "sebi": 0.000001,
-        "gst": 0.18,
-        "stamp_duty": 0.00015
+      "BSE": {
+        "brokerage_per_order": 0,
+        "stt_percent": 0.025,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.003
       }
     },
-    "BSE": {
-      "Intraday": {
-        "brokerage": 0.00025,
-        "brokerage_max": 15,
-        "stt": 0.00025,
-        "etc": 0.00003,
-        "sebi": 0.000001,
-        "gst": 0.18,
-        "stamp_duty": 0.00003
+    "Delivery": {
+      "NSE": {
+        "brokerage_per_order": 0,
+        "stt_percent": 0.1,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.015
       },
-      "Delivery": {
-        "brokerage": 0,
-        "brokerage_max": 0,
-        "stt": 0.001,
-        "etc": 0.00003,
-        "sebi": 0.000001,
-        "gst": 0.18,
-        "stamp_duty": 0.00015
+      "BSE": {
+        "brokerage_per_order": 0,
+        "stt_percent": 0.1,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.015
+      }
+    }
+  },
+  "5 Paisa": {
+    "Intraday": {
+      "NSE": {
+        "brokerage_per_order": 20,
+        "stt_percent": 0.025,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.003
+      },
+      "BSE": {
+        "brokerage_per_order": 20,
+        "stt_percent": 0.025,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.003
+      }
+    },
+    "Delivery": {
+      "NSE": {
+        "brokerage_per_order": 20,
+        "stt_percent": 0.1,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.015
+      },
+      "BSE": {
+        "brokerage_per_order": 20,
+        "stt_percent": 0.1,
+        "exchange_txn_percent": 0.00345,
+        "sebi_charges_percent": 0.0001,
+        "gst_percent": 18,
+        "stamp_duty_percent": 0.015
       }
     }
   }
